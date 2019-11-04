@@ -7,18 +7,22 @@ var keys = require("./keys.js");
 
 console.log(keys);
 
-var connection = mysql.createConnection({
-  // Your host
-  host: keys.mysqlEnv.host_name,
-  // Your port
-  port: keys.mysqlEnv.port,
-  // Your username
-  user: keys.mysqlEnv.user_name,
-  // Your password
-  password: keys.mysqlEnv.password,
-  // Your database
-  database: keys.mysqlEnv.database
-});
+if(process.env.JAWSDB_URL){
+  connection.mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+  var connection = mysql.createConnection({
+    // Your host
+    host: keys.mysqlEnv.host_name,
+    // Your port
+    port: keys.mysqlEnv.port,
+    // Your username
+    user: keys.mysqlEnv.user_name,
+    // Your password
+    password: keys.mysqlEnv.password,
+    // Your database
+    database: keys.mysqlEnv.database
+  });
+};
 
 // Make connection.
 connection.connect(function(err) {
